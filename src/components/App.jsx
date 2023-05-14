@@ -1,9 +1,18 @@
 import React from "react";
+import { CssBaseline } from "@mui/material";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => (
-  <div>
-    <h1>React App</h1>
-  </div>
+  <Router>
+    <CssBaseline />
+    <main>
+      <Routes>
+        <Route path="/" element={<h1>Home</h1>} />
+        <Route path="/movies" element={<h1>Movies</h1>} />
+        <Route path="/list" element={<h1>list</h1>} />
+      </Routes>
+    </main>
+  </Router>
 );
 
 export default App;
