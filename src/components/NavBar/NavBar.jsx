@@ -36,7 +36,7 @@ const NavBar = () => {
               edge="start"
               color="inherit"
               style={{ outline: "none" }}
-              onClick={() => {}}
+              onClick={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
               className={classes.menu}
             >
               <Menu />
@@ -45,7 +45,7 @@ const NavBar = () => {
           <IconButton color="inherit" sx={{ ml: 1 }} onClick={() => {}}>
             {theme.palette.mode === "dark" ? <Brightness7 /> : <Brightness4 />}
           </IconButton>
-          {!isMobile && "Search ..."}
+          {!isMobile && "ძებნა ..."}
           <div>
             {!isAuthenticated ? (
               <Button color="inherit" onClick={() => {}}>
@@ -59,7 +59,7 @@ const NavBar = () => {
                 className={classes.linkButton}
                 onClick={() => {}}
               >
-                {!isMobile && <>My Movies &nbsp; </>}
+                {!isMobile && <>ჩემი ფილმები &nbsp; </>}
 
                 <Avatar
                   style={{ width: 30, height: 30 }}
@@ -69,7 +69,7 @@ const NavBar = () => {
               </Button>
             )}
           </div>
-          {isMobile && "Search ..."}
+          {isMobile && "ძებნა ..."}
         </Toolbar>
       </AppBar>
       {/* SIDEBAR */}
@@ -78,7 +78,8 @@ const NavBar = () => {
           {isMobile ? (
             <Drawer
               variant="temporary"
-              anchor="left"
+              anchor="right"
+              onClick={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
               open={mobileOpen}
               classes={{ paper: classes.drawerPaper }}
               ModalProps={{ keepMounted: true }}
