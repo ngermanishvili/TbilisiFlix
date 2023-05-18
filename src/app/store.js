@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { tmdbApi } from '../services/TMDB'
 
 export default configureStore({
-    reducers: {
-        // Here we will be adding reducers
-    }
-})
+    reducer: {
+        [tmdbApi.reducerPath]: tmdbApi.reducer,
+    },
+});
