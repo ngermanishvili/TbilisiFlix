@@ -16,18 +16,16 @@ import redLogo from "../../assets/tbilisired.png";
 import blueLogo from "../../assets/tbilisiblue.png";
 
 const categories = [
-  { label: "პოპულარული ფილმები", value: "popular" },
-  { label: "TBILISIFIX რეიტინგი", value: "top_rated" },
-  { label: "მალე ქართულად", value: "upcoming" },
+  { label: "Popular", value: "popular" },
+  { label: "Top Rated", value: "top_rated" },
+  { label: "Upcoming", value: "upcoming" },
 ];
 
 const demoCategories = [
-  { label: "ანიმაცია", value: "animation" },
-  { label: "დოკუმენტური", value: "documentary" },
-  { label: "ისტორიული", value: "history" },
-  { label: "სათავგადასავლო", value: "action" },
-  { label: "ტრილერი", value: "triler" },
-  { label: "საომარი", value: "war" },
+  { label: "Comedy", value: "Comedy" },
+  { label: "Action", value: "Action" },
+  { label: "Horror", value: "Horror" },
+  { label: "Animation", value: "Animation" },
 ];
 
 const Sidebar = ({ setMobileOpen }) => {
@@ -45,7 +43,7 @@ const Sidebar = ({ setMobileOpen }) => {
       </Link>
       <Divider />
       <List>
-        <ListSubheader>კატეგორიები</ListSubheader>
+        <ListSubheader>Categories</ListSubheader>
         {categories.map(({ label, value }) => (
           <Link key={value} className={classes.links} to="/">
             <ListItem onClick={() => {}} button>
@@ -63,7 +61,7 @@ const Sidebar = ({ setMobileOpen }) => {
       </List>
       <Divider />
       <List>
-        <ListSubheader>ჟანრი</ListSubheader>
+        <ListSubheader>Genres</ListSubheader>
         {demoCategories.map(({ label, value }) => (
           <Link key={value} className={classes.links} to="/">
             <ListItem onClick={() => {}} button>
