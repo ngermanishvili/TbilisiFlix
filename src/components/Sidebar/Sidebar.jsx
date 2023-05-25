@@ -16,6 +16,8 @@ import { useGetgenresQuery } from "../../services/TMDB";
 import redLogo from "../../assets/tbilisired.png";
 import blueLogo from "../../assets/tbilisiblue.png";
 import genreIcons from "../../assets/genres";
+import { useDispatch, useSelector } from "react-redux";
+import { selectGenreOrCategory } from "../../features/CurrentGenreOrCategory";
 
 const categories = [
   { label: "Popular", value: "popular" },
@@ -23,19 +25,12 @@ const categories = [
   { label: "Upcoming", value: "upcoming" },
 ];
 
-const demoCategories = [
-  { label: "Comedy", value: "Comedy" },
-  { label: "Action", value: "Action" },
-  { label: "Horror", value: "Horror" },
-  { label: "Animation", value: "Animation" },
-];
-
 const Sidebar = ({ setMobileOpen }) => {
   const theme = useTheme();
   const classes = useStyles();
   const { data, isFetching } = useGetgenresQuery();
+  const dispatch = useDispatch();
   return (
-    
     <>
       <Link to="/" className={classes.imageLink}>
         <img
@@ -49,7 +44,7 @@ const Sidebar = ({ setMobileOpen }) => {
         <ListSubheader>Categories</ListSubheader>
         {categories.map(({ label, value }) => (
           <Link key={value} className={classes.links} to="/">
-            <ListItem onClick={() => {}} button>
+            <ListItem onClick={() => dispatch(selectGenreOrCategory(value))} button>
               <ListItemIcon>
                 <img
                   src={genreIcons[label.toLowerCase()]}
@@ -72,7 +67,7 @@ const Sidebar = ({ setMobileOpen }) => {
         ) : (
           data?.genres?.map(({ name, id }) => (
             <Link key={name} className={classes.links} to="/">
-              <ListItem onClick={() => {}} button>
+              <ListItem onClick={() => dispatch(selectGenreOrCategory(id))} button>
                 <ListItemIcon>
                   <img
                     src={genreIcons[name.toLowerCase()]}
