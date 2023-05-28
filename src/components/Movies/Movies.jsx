@@ -16,7 +16,8 @@ const Movies = () => {
     (state) => state.CurrentGenreOrCategory
   );
   const { data, error, isFetching } = useGetmoviesQuery({
-    genreIdOrCategoryName, page
+    genreIdOrCategoryName,
+    page,
   });
 
   if (isFetching) {
