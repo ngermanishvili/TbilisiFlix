@@ -26,6 +26,9 @@ const categories = [
 ];
 
 const Sidebar = ({ setMobileOpen }) => {
+  const { genreIdOrCategoryName } = useSelector(
+    (state) => state.CurrentGenreOrCategory
+  );
   const theme = useTheme();
   const classes = useStyles();
   const { data, isFetching } = useGetgenresQuery();
@@ -44,7 +47,10 @@ const Sidebar = ({ setMobileOpen }) => {
         <ListSubheader>Categories</ListSubheader>
         {categories.map(({ label, value }) => (
           <Link key={value} className={classes.links} to="/">
-            <ListItem onClick={() => dispatch(selectGenreOrCategory(value))} button>
+            <ListItem
+              onClick={() => dispatch(selectGenreOrCategory(value))}
+              button
+            >
               <ListItemIcon>
                 <img
                   src={genreIcons[label.toLowerCase()]}
@@ -67,7 +73,10 @@ const Sidebar = ({ setMobileOpen }) => {
         ) : (
           data?.genres?.map(({ name, id }) => (
             <Link key={name} className={classes.links} to="/">
-              <ListItem onClick={() => dispatch(selectGenreOrCategory(id))} button>
+              <ListItem
+                onClick={() => dispatch(selectGenreOrCategory(id))}
+                button
+              >
                 <ListItemIcon>
                   <img
                     src={genreIcons[name.toLowerCase()]}
@@ -86,4 +95,3 @@ const Sidebar = ({ setMobileOpen }) => {
 };
 
 export default Sidebar;
-
