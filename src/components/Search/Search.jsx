@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { TextField, InputAdorment } from "@mui/material";
+import { TextField, InputAdornment } from "@mui/material";
 import { Search as SearchIcon } from "@mui/icons-material";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+
+import { searchMovie } from "../../features/CurrentGenreOrCategory";
 import useStyles from "./styles";
 
 const Search = () => {
   const [query, setQuery] = useState("");
   const classes = useStyles();
+  const dispatch = useDispatch();
 
-  const handleKeyPress = () => {
-    console.log("key pressed");
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      dispatch(searchMovie(query));
+    }
   };
   return (
     <div className={classes.searchContainer}>
@@ -19,12 +25,12 @@ const Search = () => {
         onKeyPress={handleKeyPress}
         value={query}
         variant="standard"
-        Input={{
+        InputProps={{
           className: classes.input,
           startAdornment: (
-            <InputAdorment position="start">
+            <InputAdornment position="start">
               <SearchIcon />
-            </InputAdorment>
+            </InputAdornment>
           ),
         }}
       />
