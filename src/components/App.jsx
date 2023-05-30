@@ -3,7 +3,6 @@ import { CssBaseline } from "@mui/material";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import useStyles from "../components/styles";
 
-
 import {
   MovieInformation,
   Actors,
@@ -23,10 +22,11 @@ const App = () => {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Routes>
-            <Route path="/movie/:id" element={<MovieInformation />} />
-            <Route path="/actors/:id" element={<Actors />} />
-            <Route path="/" element={<Movies />} />
-            <Route path="/profile:/id" element={<Profile />} />
+            <Route exact path="/" element={<Movies />} />
+            <Route exact path="/approved" element={<Movies />} />
+            <Route exact path="/movie/:id" element={<MovieInformation />} />
+            <Route exact path="/actors/:id" element={<Actors />} />
+            <Route exact path="/profile/:id" element={<Profile />} />
           </Routes>
         </main>
       </Router>
