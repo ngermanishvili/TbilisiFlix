@@ -7,6 +7,7 @@ export const moviesApi = axios.create({
   },
 });
 
+//
 export const fetchToken = async () => {
     try {
       const { data } = await moviesApi.get('/authentication/token/new');
@@ -44,4 +45,5 @@ export const fetchToken = async () => {
       }
     }
   };
+
   
