@@ -13,12 +13,12 @@ const Profile = () => {
   // Get user from redux store
   const { user } = useSelector(userSelector);
 
-  const favoriteMovies = ''
+  const favoriteMovies = "";
 
   return (
     <Box>
       <Box display="flex" justifyContent="space-between">
-        <Typography variant="h4">My Profile</Typography>
+        <Typography variant="h4">{user.username}'s Profile</Typography>
         <Button color="inherit" onClick={logout} disabled={!user}>
           Logout &nbsp; <ExitToApp />
         </Button>
