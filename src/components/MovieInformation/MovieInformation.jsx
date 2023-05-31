@@ -18,35 +18,36 @@ import {
   FavoriteBorderOutlined,
   Remove,
   ArrowBack,
+  Movie,
 } from "@mui/icons-material";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { useGetmovieQuery } from "../../services/TMDB";
+import {
+  useGetmovieQuery,
+  useGetRecommendationsQuery,
+} from "../../services/TMDB";
 import useStyles from "./styles";
 import genreIcons from "../../assets/genres";
 import { selectGenreOrCategory } from "../../features/CurrentGenreOrCategory";
+import MovieList from "../MovieList/MovieList";
 
 const MovieInformation = () => {
   const { id } = useParams();
   const { data, isFetching, error } = useGetmovieQuery(id);
   const classes = useStyles();
   const dispatch = useDispatch();
+  //* Recomendations query
+
+  const { data: recommendations, isFetching: isRecommendationsFetching } =
+    useGetRecommendationsQuery({ list: "/recommendations", movie_id: id });
 
   const isMovieFavorited = true;
   const isMovieWatchlisted = true;
 
+  const addToFavorites = () => {};
 
-  const addToFavorites =  () => {
-
-  }
-
-  const addToWatchList = () => {
-
-  }
-
-
-
+  const addToWatchList = () => {};
 
   if (isFetching) {
     return (
@@ -157,25 +158,62 @@ const MovieInformation = () => {
               )
               .slice(0, 6)}
         </Grid>
-        <Grid item container style={{ marginTop: '2rem' }}>
+        <Grid item container style={{ marginTop: "2rem" }}>
           <div className={classes.buttonContainer}>
             <Grid item xs={12} sm={6} className={classes.buttonContainer}>
               <ButtonGroup size="small" variant="outlined">
-                <Button target="_blank" rel="noopener noreferrer" href={data?.homepage} endIcon={<Language />}>Website</Button>
-                <Button target="_blank" rel="noopener noreferrer" href={`https://www.imdb.com/title/${data?.imdb_id}`} endIcon={<MovieIcon />}>IMDB</Button>
-                <Button onClick={() => setOpen(true)} href="#" endIcon={<Theaters />}>Trailer</Button>
+                <Button
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={data?.homepage}
+                  endIcon={<Language />}
+                >
+                  Website
+                </Button>
+                <Button
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={`https://www.imdb.com/title/${data?.imdb_id}`}
+                  endIcon={<MovieIcon />}
+                >
+                  IMDB
+                </Button>
+                <Button
+                  onClick={() => setOpen(true)}
+                  href="#"
+                  endIcon={<Theaters />}
+                >
+                  Trailer
+                </Button>
               </ButtonGroup>
             </Grid>
             <Grid item xs={12} sm={6} className={classes.buttonContainer}>
               <ButtonGroup size="small" variant="outlined">
-                <Button onClick={addToFavorites} endIcon={isMovieFavorited ? <FavoriteBorderOutlined /> : <Favorite />}>
-                  {isMovieFavorited ? 'Unfavorite' : 'Favorite'}
+                <Button
+                  onClick={addToFavorites}
+                  endIcon={
+                    isMovieFavorited ? <FavoriteBorderOutlined /> : <Favorite />
+                  }
+                >
+                  {isMovieFavorited ? "Unfavorite" : "Favorite"}
                 </Button>
-                <Button onClick={addToWatchList} endIcon={isMovieWatchlisted ? <Remove /> : <PlusOne />}>
+                <Button
+                  onClick={addToWatchList}
+                  endIcon={isMovieWatchlisted ? <Remove /> : <PlusOne />}
+                >
                   Watchlist
                 </Button>
-                <Button endIcon={<ArrowBack />} sx={{ borderColor: 'primary.main' }}>
-                  <Typography variant="subtitle2" component={Link} to="/" color="inherit" sx={{ textDecoration: 'none' }}>
+                <Button
+                  endIcon={<ArrowBack />}
+                  sx={{ borderColor: "primary.main" }}
+                >
+                  <Typography
+                    variant="subtitle2"
+                    component={Link}
+                    to="/"
+                    color="inherit"
+                    sx={{ textDecoration: "none" }}
+                  >
                     Back
                   </Typography>
                 </Button>
@@ -184,8 +222,15 @@ const MovieInformation = () => {
           </div>
         </Grid>
       </Grid>
+      <Box marginTop="5rem" width="100%">
+        <Typography variant="h3" gutterBottom align="center">
+          You might also like
+        </Typography>
+       {recommendations ? <MovieList movies={recommendations} numberOfMovies={12} isFetching={isRecommendationsFetching} /> : <CircularProgress />}
+      </Box>
     </Grid>
   );
 };
 
 export default MovieInformation;
+
