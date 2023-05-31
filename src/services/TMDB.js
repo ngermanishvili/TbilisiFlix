@@ -15,31 +15,36 @@ export const tmdbApi = createApi({
         //* Get movie by [Type]
         getmovies: builder.query({
             query: ({ genreIdOrCategoryName, page, searchQuery }) => {
-                //* Get movies by Search
+                //* Get Movies by Search
 
-                if(searchQuery) {
+                if (searchQuery) {
                     return `/search/movie?query=${searchQuery}&page=${page}&api_key=${tmdbApiKey}`
                 }
 
-                //*Get movies by Categoeries
+                //*Get Movies by Categoeries
                 if (genreIdOrCategoryName && typeof genreIdOrCategoryName === 'string') {
                     return {
                         url: `movie/${genreIdOrCategoryName}?page=${page}&api_key=${tmdbApiKey}`,
                     }
                 }
-                //*Get movies by Genres
+                //*Get Movies by Genres
                 if (genreIdOrCategoryName && typeof genreIdOrCategoryName === 'number') {
                     return {
                         url: `discover/movie?with_genres=${genreIdOrCategoryName}&page=${page}&api_key=${tmdbApiKey}`,
                     }
                 }
-
+                //* Get Popular Movies
                 return {
                     url: `movie/popular?page=${page}&api_key=${tmdbApiKey}`,
                 }
             }
-        })
+        }),
+        // * Get Movie
+        getmovie: builder.query({
+            query: (id) => `/movie/${id}?append_to_response=videos,credits&api_key=${tmdbApiKey}`,
+        }),
+
     })
 })
 
-export const { useGetmoviesQuery, useGetgenresQuery } = tmdbApi;
+export const { useGetmoviesQuery, useGetgenresQuery, useGetmovieQuery } = tmdbApi;
