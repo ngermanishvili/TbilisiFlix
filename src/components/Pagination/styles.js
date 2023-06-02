@@ -10,7 +10,7 @@ export default makeStyles((theme) => ({
     margin: '30px 2px',
   },
   pageNumber: {
-    margin: '0 20px !important',
+    margin: '0 30px !important',
     color: theme.palette.text.primary,
   },
 }));
