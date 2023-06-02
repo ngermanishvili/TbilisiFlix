@@ -10,6 +10,8 @@ import Pagination from "../Pagination/Pagination";
 import { useSelector } from "react-redux";
 import { useGetmoviesQuery } from "../../services/TMDB";
 import { selectGenreOrCategory } from "../../features/CurrentGenreOrCategory";
+import FeaturedMovie from "../FeaturedMovie/FeaturedMovie";
+
 
 const Movies = () => {
   const [page, setPage] = useState(1);
@@ -23,7 +25,7 @@ const Movies = () => {
   });
   const lg = useMediaQuery((theme) => theme.breakpoints.up("lg"));
 
-  const numberOfMovies = lg ? 16 : 18;
+  const numberOfMovies = lg ? 18 : 20;
 
   if (isFetching) {
     return (
@@ -35,30 +37,26 @@ const Movies = () => {
 
   if (!data.results.length) {
     return (
-      <Box display="flex" alignItems="center" mt="20px">
+      <Box display="flex" justifyContent="center" alignItems="center" mt="20px">
         <Typography variant="h4">
-          No movies that match that found
+          No movies that match that name.
           <br />
-          Please search for something else.
+          Please searh for something else.
         </Typography>
       </Box>
     );
   }
 
-  if (error) return "Something went wrong";
+  if (error) return 'An error has occured.';
 
-  console.log(data);
   return (
     <div>
-      <MovieList movies={data} numberOfMovies={numberOfMovies} />
-      <Pagination
-        currentPage={page}
-        setPage={setPage}
-        total={data.total_pages}
-      />
+      <FeaturedMovie movie={data.results[0]} />
+      <MovieList movies={data} numberOfMovies={numberOfMovies} excludeFirst />
+      <Pagination currentPage={page} setPage={setPage} totalPages={data.total_pages} />
     </div>
   );
-};
+}
 
 //
 export default Movies;
