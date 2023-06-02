@@ -12,6 +12,7 @@ import {
   Footer,
 } from "../components/index";
 
+// Nika Germanishvuili
 const App = () => {
   const classes = useStyles();
 
