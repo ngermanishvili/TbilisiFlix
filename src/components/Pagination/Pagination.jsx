@@ -1,27 +1,26 @@
 import React from "react";
 import { Typography, Button } from "@mui/material";
-
 import useStyles from "./styles";
 
-const Pagination = ({currentpage, totalPages, setPage}) => {
+const Pagination = ({ currentPage, totalPages, setPage }) => {
   const classes = useStyles();
 
-
   const handleNext = () => {
-    
-  }
+    if (currentPage === totalPages) return;
+    setPage((prev) => prev + 1);
+  };
 
   const handlePrev = () => {
- 
-  }
+    if (currentPage === 1) return;
+    setPage((prev) => prev - 1);
+  };
 
-  if(totalPages === 1) return null;
-
+  if (totalPages === 1) return null;
 
   return (
     <div className={classes.container}>
       <Button
-            onClick={handlePrev}
+        onClick={handlePrev}
         className={classes.button}
         variant="contained"
         color="primary"
@@ -33,7 +32,7 @@ const Pagination = ({currentpage, totalPages, setPage}) => {
         {currentPage}
       </Typography>
       <Button
-      onClick={handleNext}
+        onClick={handleNext}
         className={classes.button}
         variant="contained"
         color="primary"
@@ -41,7 +40,6 @@ const Pagination = ({currentpage, totalPages, setPage}) => {
       >
         Next
       </Button>
-      
     </div>
   );
 };
