@@ -1,32 +1,10 @@
-import React, { useState, useEffect } from "react";
-import {
-  Modal,
-  Typography,
-  Button,
-  ButtonGroup,
-  Grid,
-  Box,
-  CircularProgress,
-  Rating,
-} from "@mui/material";
-import {
-  Movie as MovieIcon,
-  Theaters,
-  Language,
-  PlusOne,
-  Favorite,
-  FavoriteBorderOutlined,
-  Remove,
-  ArrowBack,
-  Movie,
-} from "@mui/icons-material";
+import React, { useState } from "react";
+import { Modal, Typography, Button, ButtonGroup, Grid, Box, CircularProgress, Rating } from "@mui/material";
+import { Movie as MovieIcon, Theaters, Language, PlusOne, Favorite, FavoriteBorderOutlined, Remove, ArrowBack, Movie } from "@mui/icons-material";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import {
-  useGetmovieQuery,
-  useGetRecommendationsQuery,
-} from "../../services/TMDB";
+import { useGetmovieQuery, useGetRecommendationsQuery } from "../../services/TMDB";
 import useStyles from "./styles";
 import genreIcons from "../../assets/genres";
 import { selectGenreOrCategory } from "../../features/CurrentGenreOrCategory";
@@ -38,10 +16,9 @@ const MovieInformation = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  //* Recomendations query
 
-  const { data: recommendations, isFetching: isRecommendationsFetching } =
-    useGetRecommendationsQuery({ list: "/recommendations", movie_id: id });
+  // Recommendations query
+  const { data: recommendations, isFetching: isRecommendationsFetching } = useGetRecommendationsQuery({ list: "/recommendations", movie_id: id });
 
   const isMovieFavorited = true;
   const isMovieWatchlisted = true;
@@ -65,6 +42,8 @@ const MovieInformation = () => {
       </Box>
     );
   }
+
+  
 
   return (
     <Grid container className={classes.containerSpaceAround}>
