@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Typography, Button, Box } from "@mui/material";
 import { useSelector } from "react-redux";
 import { userSelector } from "../../features/auth";
 import { ExitToApp } from "@mui/icons-material";
+import { useGetListQuery } from "../../services/TMDB";
+import { RatedCards } from "..";
 
 const logout = () => {
   localStorage.clear();
@@ -12,30 +14,46 @@ const logout = () => {
 const Profile = () => {
   // Get user from redux store
   const { user } = useSelector(userSelector);
+  const [open, setOpen] = useState(false);
 
-  const favoriteMovies = "";
+  const { data: favoriteMovies, refetch: refetchFavorites } = useGetListQuery({
+    listName: "favorite/movies",
+    accountId: user.id,
+    sessionId: localStorage.getItem("session_id"),
+    page: 1,
+  });
+  const { data: watchlistMovies, refetch: refetchWatchlisted } =
+    useGetListQuery({
+      listName: "watchlist/movies",
+      accountId: user.id,
+      sessionId: localStorage.getItem("session_id"),
+      page: 1,
+    });
+
+  useEffect(() => {
+    refetchFavorites();
+    refetchWatchlisted();
+  }, [favoriteMovies, watchlistMovies]);
 
   return (
     <Box>
       <Box display="flex" justifyContent="space-between">
-        <Typography variant="h4">{user.username}'s Profile</Typography>
-        <Button color="inherit" onClick={logout} disabled={!user}>
+        <Typography variant="h4" gutterBottom>
+          My Profile
+        </Typography>
+        <Button color="inherit" onClick={logout}>
           Logout &nbsp; <ExitToApp />
         </Button>
       </Box>
-      {favoriteMovies.length ? (
-        <Box variant="h6">
-          Your favorite movies:
-          {favoriteMovies.map((movie) => (
-            <Typography key={movie.id} variant="body1">
-              {movie.title}
-            </Typography>
-          ))}
-        </Box>
-      ) : (
-        <Typography variant="h6">
-          Add favorites or watchlist items to see them here!
+      {!favoriteMovies?.results?.length && !watchlistMovies?.results?.length ? (
+        <Typography variant="h5">
+          Add favourite or watchlist same movies to see them here!
         </Typography>
+      ) : (
+        <Box>
+          <RatedCards title="Favorite Movies" movies={favoriteMovies} />
+          <RatedCards title="Watchlist" movies={watchlistMovies} />
+        </Box>
       )}
     </Box>
   );
