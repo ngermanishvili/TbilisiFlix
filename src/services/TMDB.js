@@ -47,8 +47,19 @@ export const tmdbApi = createApi({
         //* Get user specific list
         getRecommendations: builder.query({
             query: ({ movie_id, list }) => `/movie/${movie_id}/${list}?api_key=${tmdbApiKey}`
+        }),
+
+        //* Get actors details
+        getActorsDetails: builder.query({
+            query: (id) => `person/${id}?api_key=${tmdbApiKey} `
+        }),
+
+        //*Get Movies by actor id
+
+        getMoviesByActorId: builder.query({
+            query: ({ id, page }) => `/discover/movie?with_cast=${id}&page=${page}&api_key=${tmdbApiKey}`
         })
     })
 })
 
-export const { useGetmoviesQuery, useGetgenresQuery, useGetmovieQuery, useGetRecommendationsQuery } = tmdbApi;
+export const { useGetmoviesQuery, useGetgenresQuery, useGetmovieQuery, useGetRecommendationsQuery, useGetActorsDetailsQuery, useGetMoviesByActorIdQuery } = tmdbApi;
