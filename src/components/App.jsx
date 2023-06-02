@@ -9,6 +9,7 @@ import {
   Profile,
   Movies,
   NavBar,
+  Footer,
 } from "../components/index";
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
             <Route exact path="/actors/:id" element={<Actors />} />
             <Route exact path="/profile/:id" element={<Profile />} />
           </Routes>
+          <Footer />
         </main>
       </Router>
     </div>
