@@ -62,73 +62,72 @@ const NavBar = () => {
 
   return (
     <>
-      <AppBar position="fixed">
-        <Toolbar className={classes.toolbar}>
-          {isMobile && (
-            <IconButton
-              edge="start"
-              color="inherit"
-              style={{ outline: "none" }}
-              onClick={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
-              className={classes.menu}
-            >
-              <Menu />
-            </IconButton>
-          )}
-          <IconButton color="inherit" sx={{ ml: 1 }} onClick={colorMode.toggleColorMode}>
-            {theme.palette.mode === "dark" ? <Brightness7 /> : <Brightness4 />}
-          </IconButton>
-          {!isMobile && <Search />}
-          <div>
-            {!isAuthenticated ? (
-              <Button color="inherit" onClick={fetchToken}>
-                Login &nbsp; <AccountCircle />
-              </Button>
-            ) : (
-              <Button
-                color="inherit"
-                component={Link}
-                to={`/profile/${user?.id}`}
-                className={classes.linkButton}
-              >
-                {!isMobile && <>My Movies &nbsp;</>}
-                <Avatar
-                  style={{ width: 30, height: 30 }}
-                  alt="Profile"
-                  src={`https://www.themoviedb.org/t/p/w64_and_h64_face${user?.avatar?.tmdb?.avatar?.avatar_path}`}
-                />
-              </Button>
-            )}
-          </div>
-          {isMobile && <Search />}
-        </Toolbar>
-      </AppBar>
-      {/* SIDEBAR */}
-      <div>
-        <nav className={classes.drawer}>
-          {isMobile ? (
-            <Drawer
-              variant="temporary"
-              anchor="right"
-              onClick={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
-              open={mobileOpen}
-              classes={{ paper: classes.drawerPaper }}
-              ModalProps={{ keepMounted: true }}
-            >
-              <Sidebar setMobileOpen={setMobileOpen} />
-            </Drawer>
+    <AppBar position="fixed">
+      <Toolbar className={classes.toolbar}>
+        {isMobile && (
+        <IconButton
+          color="inherit"
+          edge="start"
+          style={{ outline: 'none' }}
+          onClick={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
+          className={classes.menuButton}
+        >
+          <Menu />
+        </IconButton>
+        )}
+        <IconButton
+          color="inherit"
+          sx={{ ml: 1 }}
+          onClick={colorMode.toggleColorMode}
+        >
+          {theme.palette.mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
+        </IconButton>
+        {!isMobile && <Search />}
+        <div>
+          {!isAuthenticated ? (
+            <Button color="inherit" onClick={fetchToken}>
+              Login &nbsp; <AccountCircle />
+            </Button>
           ) : (
-            <Drawer
-              classes={{ paper: classes.drawerPaper }}
-              variant="permanent"
-              open
+            <Button
+              color="inherit"
+              component={Link}
+              to={`/profile/${user.id}`}
+              className={classes.linkButton}
             >
-              <Sidebar setMobileOpen={setMobileOpen} />
-            </Drawer>
+              {!isMobile && <>My Movies &nbsp;</>}
+              <Avatar
+                style={{ width: 30, height: 30 }}
+                alt="Profile"
+                src={`https://www.themoviedb.org/t/p/w64_and_h64_face${user?.avatar?.tmdb?.avatar?.avatar_path}`}
+              />
+            </Button>
           )}
-        </nav>
-      </div>
-    </>
+        </div>
+        {isMobile && <Search />}
+      </Toolbar>
+    </AppBar>
+    <div>
+      <nav className={classes.drawer}>
+        {isMobile ? (
+          <Drawer
+            variant="temporary"
+            anchor="left"
+            open={mobileOpen}
+            onClose={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
+            classes={{ paper: classes.drawerPaper }}
+            ModalProps={{ keepMounted: true }}
+          >
+            <Sidebar setMobileOpen={setMobileOpen} />
+          </Drawer>
+        ) : (
+          <Drawer classes={{ paper: classes.drawerPaper }} variant="permanent" open>
+            <Sidebar setMobileOpen={setMobileOpen} />
+          </Drawer>
+        )}
+      </nav>
+    </div>
+  </>
   );
 };
 
