@@ -14,6 +14,7 @@ const Pagination = ({ currentPage, totalPages, setPage }) => {
     if (currentPage === 1) return;
     setPage((prev) => prev - 1);
   };
+  //
 
   if (totalPages === 1) return null;
 
